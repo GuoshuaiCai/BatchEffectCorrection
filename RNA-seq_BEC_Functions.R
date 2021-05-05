@@ -153,8 +153,8 @@ EdgerRemoveBatchEffect<-function(data,group,batch,numBatch){
 
 ###limmaVoom
 limmaVoomRemoveBatchEffect<-function(data,group,batch,numBatch){
-  design<-model.matrix(~factor(sample)+factor(site))
-  v<-voom(edata, design)
+  design<-model.matrix(~factor(group)+factor(batch))
+  v<-voom(data, design)
   fit <- lmFit(v,design)
   ncol<-ncol(design)
   cutoff<-ncol-numBatch+2
