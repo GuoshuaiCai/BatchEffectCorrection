@@ -136,6 +136,7 @@ LS.fun<-function (dat, batch, mod = NULL,mean.only = FALSE, ref.batch = NULL) {
 
 ###edgeR
 EdgerRemoveBatchEffect<-function(data,group,batch,numBatch){
+  library(edgeR)
   design<-model.matrix(~factor(group)+factor(batch))
   y<-as.matrix(data)
   y <- DGEList(counts=y)
@@ -153,6 +154,7 @@ EdgerRemoveBatchEffect<-function(data,group,batch,numBatch){
 
 ###limmaVoom
 limmaVoomRemoveBatchEffect<-function(data,group,batch,numBatch){
+  library(limma)
   design<-model.matrix(~factor(group)+factor(batch))
   v<-voom(data, design)
   fit <- lmFit(v,design)
@@ -166,6 +168,7 @@ limmaVoomRemoveBatchEffect<-function(data,group,batch,numBatch){
 
 ###DESeq
 DESeqRemoveBatchEffect<-function(data,group,batch,numBatch){
+  library(DESeq)
   modelFrame<- model.matrix(~factor(group)+factor(batch))
   cds <- newCountDataSet(data,modelFrame)
   cds <- estimateSizeFactors(cds)
